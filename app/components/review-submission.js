@@ -22,6 +22,7 @@ export default Component.extend({
     }),
 
     store: service(),
+    flashMessages: service(),
 
     actions: {
         addReview() {
@@ -32,11 +33,12 @@ export default Component.extend({
                 description: this.get('description'),
                 worth: this.get('worth')
             });
+
             review.save().then(() => {
-                console.log('Review saved.')
-            }).catch(e => {
-                console.log('Error: ' + e)
-            });
+                history.back();
+            }).catch(() => {
+                this.get('flashMessages').danger('Sorry! We couldn\'nt add your review. Please try again!');
+            })
         },
 
         setCategory(category) {
@@ -45,6 +47,10 @@ export default Component.extend({
 
         setWorth(value) {
             this.set('worth', value === 'yes');
+        },
+
+        cancel() {
+            history.back();
         }
     }
 });

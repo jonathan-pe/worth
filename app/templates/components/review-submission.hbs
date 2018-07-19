@@ -1,84 +1,90 @@
-<div class="field is-horizontal">
-    <div class="field-label is-normal">
-        <label class="label">Name</label>
+{{#each flashMessages.queue as |flash|}}
+  {{flash-message class="flashMessage" flash=flash}}
+{{/each}}
+
+<div class="section">
+    <div class="field is-horizontal">
+        <div class="field-label is-normal">
+            <label class="label">Name</label>
+        </div>
+        <div class="field-body">
+            <div class="field">
+                <div class="control">
+                    {{input class="input" type="text" placeholder="Name" value=name}}
+                </div>
+            </div>
+
+            <div class="field has-addons">
+                <div class="control">
+                    <a class="button is-static">
+                        $
+                    </a>
+                </div>
+                <p class="control">
+                    {{input id="amount-input" class="input" min="0" step=".01" type="number" value=price}}
+                </p>
+            </div>
+        </div>
     </div>
-    <div class="field-body">
-        <div class="field">
+
+    <div class="field is-horizontal">
+        <div class="field-label is-normal">
+            <label class="label">Category</label>
+        </div>
+        <div class="field-body">
             <div class="control">
-                {{input class="input" type="text" placeholder="Name" value=name}}
+                <div class="select">
+                    <select onchange={{action "setCategory" value="target.value"}}>
+                        <option value="cars">Cars</option>
+                        <option value="videogames">Video Games</option>
+                        <option value="food">Food</option>
+                        <option value="music">Music</option>
+                        <option value="shoes">Shoes</option>
+                    </select>
+                </div>
             </div>
         </div>
+    </div>
 
-        <div class="field has-addons">
+    <div class="field is-horizontal">
+        <div class="field-label is-normal">
+            <label class="label">Description</label>
+        </div>
+        <div class="field-body">
+            <div id="review-description" class="control">
+                {{textarea class="textarea" placeholder="Description..." value=description}}
+            </div>
+        </div>
+    </div>
+
+    <div class="field is-horizontal">
+        <div class="field-label is-normal">
+            <label class="label">Worth It?</label>
+        </div>
+        <div class="field-body">
             <div class="control">
-                <a class="button is-static">
-                    $
-                </a>
-            </div>
-            <p class="control">
-                {{input id="amount-input" class="input" min="0" step=".01" type="number" value=price}}
-            </p>
-        </div>
-    </div>
-</div>
-
-<div class="field is-horizontal">
-    <div class="field-label is-normal">
-        <label class="label">Category</label>
-    </div>
-    <div class="field-body">
-        <div class="control">
-            <div class="select">
-                <select onchange={{action "setCategory" value="target.value"}}>
-                    <option value="cars">Cars</option>
-                    <option value="videogames">Video Games</option>
-                    <option value="food">Food</option>
-                    <option value="music">Music</option>
-                    <option value="shoes">Shoes</option>
-                </select>
+                <div class="select">
+                    <select onchange={{action "setWorth" value="target.value"}}>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                    </select>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="field is-horizontal">
-    <div class="field-label is-normal">
-        <label class="label">Description</label>
-    </div>
-    <div class="field-body">
-        <div id="review-description" class="control">
-            {{textarea class="textarea" placeholder="Description..." value=description}}
+    <div class="field is-horizontal">
+        <div class="field-label">
+        <!-- Left empty for spacing -->
         </div>
-    </div>
-</div>
-
-<div class="field is-horizontal">
-    <div class="field-label is-normal">
-        <label class="label">Worth It?</label>
-    </div>
-    <div class="field-body">
-        <div class="control">
-            <div class="select">
-                <select onchange={{action "setWorth" value="target.value"}}>
-                    <option value="yes">Yes</option>
-                    <option value="no">No</option>
-                </select>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="field is-horizontal">
-    <div class="field-label">
-    <!-- Left empty for spacing -->
-    </div>
-    <div class="field-body">
-        <div class="field is-grouped">
-            <div class="control">
-                <button {{action "addReview"}} class="button is-link" disabled={{ineligibleForm}}>Submit</button>
-            </div>
-            <div class="control">
-                <button class="button is-text">Cancel</button>
+        <div class="field-body">
+            <div class="field is-grouped">
+                <div class="control">
+                    <button {{action "addReview"}} class="button is-link" disabled={{ineligibleForm}}>Submit</button>
+                </div>
+                <div class="control">
+                    <button {{action "cancel"}} class="button is-text">Cancel</button>
+                </div>
             </div>
         </div>
     </div>
